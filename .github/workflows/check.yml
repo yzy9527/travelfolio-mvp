@@ -1,0 +1,24 @@
+name: TypeScript checks
+on:
+  pull_request:
+  push:
+    branches: ['main', 'feat/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - name: Check source ZIP integrity
+        run: |
+          node scripts/package-source.mjs /tmp/travelfolio-source.zip
+          unzip -t /tmp/travelfolio-source.zip

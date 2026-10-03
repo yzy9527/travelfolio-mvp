@@ -1,0 +1,42 @@
+{
+  "name": "@travelfolio/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "dev": "node --import tsx --watch src/main.ts",
+    "start": "node dist/main.js",
+    "migrate": "node --import tsx src/migrate.ts",
+    "admin:create": "node --import tsx src/admin-cli.ts",
+    "test": "node --import tsx --test test/*.test.ts",
+    "start:worker": "node dist/worker-main.js",
+    "dev:worker": "node --import tsx --watch src/worker-main.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "cookie-parser": "^1.4.7",
+    "helmet": "^8.1.0",
+    "ipaddr.js": "^2.2.0",
+    "maplibre-gl": "^5.24.0",
+    "pg": "^8.16.0",
+    "playwright-core": "^1.63.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "sharp": "^0.35.5",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.15.0",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.3"
+  }
+}

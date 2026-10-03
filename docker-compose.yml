@@ -1,0 +1,150 @@
+name: travelfolio
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: travelfolio
+      POSTGRES_USER: travelfolio_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a random bootstrap database password in .env}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?Set a separate random URL-safe application database password in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./deploy/postgres-init.sh:/docker-entrypoint-initdb.d/10-app-role.sh:ro
+    networks:
+      - database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U travelfolio_admin -d travelfolio"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+      target: runtime
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 120s
+    command: ["sh", "-c", "node api/dist/migrate.js && exec node api/dist/main.js"]
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DATABASE_URL: postgresql://travelfolio:${APP_DB_PASSWORD:?Set APP_DB_PASSWORD in .env}@postgres:5432/travelfolio
+      APP_ORIGIN: ${APP_ORIGIN:?Set the exact browser origin in .env}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-true}
+      KEY_ENCRYPTION_SECRET: ${KEY_ENCRYPTION_SECRET:?Set a random 32-byte base64 key in .env}
+      DEMO_ENABLED: ${DEMO_ENABLED:-false}
+      BRAVE_SEARCH_CONFIGURED: ${BRAVE_SEARCH_CONFIGURED:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - database
+      - application
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  worker:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+      target: worker-runtime
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    command: ["node", "api/dist/worker-main.js"]
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://travelfolio:${APP_DB_PASSWORD:?Set APP_DB_PASSWORD in .env}@postgres:5432/travelfolio
+      APP_ORIGIN: ${APP_ORIGIN:?Set APP_ORIGIN in .env}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-true}
+      KEY_ENCRYPTION_SECRET: ${KEY_ENCRYPTION_SECRET:?Set KEY_ENCRYPTION_SECRET in .env}
+      DEMO_ENABLED: ${DEMO_ENABLED:-false}
+      BRAVE_SEARCH_API_KEY: ${BRAVE_SEARCH_API_KEY:-}
+      WORK_ROOT: /data/jobs
+      CHROMIUM_PATH: /usr/bin/chromium
+      RESEARCH_OFFICIAL_HOSTS: ${RESEARCH_OFFICIAL_HOSTS:-}
+      WORKER_DNS_MODE: ${WORKER_DNS_MODE:-cloudflare}
+    volumes:
+      - worker_data:/data
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - database
+      - worker_egress
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEB_PORT:-7875}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - application
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:rw,noexec,nosuid,size=32m
+      - /var/run:rw,noexec,nosuid,size=4m
+      - /tmp:rw,noexec,nosuid,size=16m
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  worker_data:
+
+networks:
+  database:
+    internal: true
+  application:
+    internal: true
+  worker_egress:

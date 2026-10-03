@@ -1,0 +1,24 @@
+{
+  "name": "travelfolio",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "api",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build -w api && npm run build -w web",
+    "typecheck": "npm run typecheck -w api && npm run typecheck -w web",
+    "test": "npm run test -w api && npm run test -w web",
+    "dev:api": "npm run dev -w api",
+    "dev:web": "npm run dev -w web",
+    "migrate": "npm run migrate -w api",
+    "admin:create": "npm run admin:create -w api",
+    "check": "npm run typecheck && npm test && npm run build",
+    "dev:worker": "npm run dev:worker -w api",
+    "package:source": "node scripts/package-source.mjs"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

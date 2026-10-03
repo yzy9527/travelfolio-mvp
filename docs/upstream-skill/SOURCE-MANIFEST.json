@@ -1,0 +1,86 @@
+{
+  "repository": "https://github.com/TokenHungryMash/personalized-travel-guide-skill",
+  "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+  "license": "MIT",
+  "method": "Authoritative files read through authorized GitHub connector. No upstream Python script was executed.",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "013471c0598b1890497b3e7152f7e6b0f0832436",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/SKILL.md"
+    },
+    {
+      "path": "references/content-model.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "642f203f8a733d5d3a682c15b975763c930cb2f4",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/content-model.md"
+    },
+    {
+      "path": "references/research-data-shapes.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "c77a6f108e8ce2ea7abc84fd5dfb666ba1e793d7",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/research-data-shapes.md"
+    },
+    {
+      "path": "references/research-and-profile-pipeline.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "bf19d22fdc5eb1ca3fa5e04dd07f36d4878f8f71",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/research-and-profile-pipeline.md"
+    },
+    {
+      "path": "references/rendering-and-assets.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "29b00bc9dd87ba7b8483217981432c887bd62483",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/rendering-and-assets.md"
+    },
+    {
+      "path": "references/production-flow.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "2c1ef0342a36a0c7e36aaf361e66c3b38e32a91e",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/production-flow.md"
+    },
+    {
+      "path": "references/release-validation.md",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "d38f743cf9914a22935c1e4c32be3b2e328ad8e6",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/references/release-validation.md"
+    },
+    {
+      "path": "assets/research-pack-contract.json",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "aaf923c018b75cacac6951b47761e349f960aa34",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/assets/research-pack-contract.json"
+    },
+    {
+      "path": "assets/destination-profile.schema.json",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "d4f33c35bf074a3ef97984863df5b754d7110eea",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/assets/destination-profile.schema.json"
+    },
+    {
+      "path": "scripts/compile_destination_profile.py",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "341962cccee0645f56f1e68c7638cc32178e01f9",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/scripts/compile_destination_profile.py"
+    },
+    {
+      "path": "scripts/build_render_bindings.py",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "e2f61476fa26433cf4fbf279408d09165cf231ea",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/scripts/build_render_bindings.py"
+    },
+    {
+      "path": "scripts/validate_destination_data.py",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "4ca2875c64ec338580f9bacaf1d09a7ac346d27e",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/scripts/validate_destination_data.py"
+    },
+    {
+      "path": "LICENSE",
+      "commit": "66e54427e109d5601cd7cabf2cd85d550d1ba280",
+      "blobSha": "00ba8d413bf758e6b0e1eb3be04cf59631b84ec8",
+      "url": "https://github.com/TokenHungryMash/personalized-travel-guide-skill/blob/66e54427e109d5601cd7cabf2cd85d550d1ba280/LICENSE"
+    }
+  ]
+}
